@@ -2,6 +2,7 @@ package rfc5424
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/influxdata/go-syslog/v3"
@@ -1525,7 +1526,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 		goto st0
 	tr33:
 
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		m.err = fmt.Errorf(ErrStructuredData+":1:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -1546,7 +1547,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 			goto st614
 		}
 
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		m.err = fmt.Errorf(ErrStructuredData+":2:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -1582,7 +1583,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 			goto st614
 		}
 
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		m.err = fmt.Errorf(ErrStructuredData+":3:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -1602,7 +1603,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 			goto st614
 		}
 
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		m.err = fmt.Errorf(ErrStructuredData+":4:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -1629,7 +1630,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 			goto st614
 		}
 
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		m.err = fmt.Errorf(ErrStructuredData+":5:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -1681,8 +1682,8 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 
 		goto st0
 	tr633:
-
-		m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+		fmt.Printf("banana:", string(m.data))
+		m.err = fmt.Errorf(ErrStructuredData+":6:"+ColumnPositionTemplate, m.p)
 		(m.p)--
 
 		{
@@ -11713,7 +11714,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 
 			case 16:
 
-				m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+				m.err = fmt.Errorf(ErrStructuredData+":7:"+ColumnPositionTemplate, m.p)
 				(m.p)--
 
 				{
@@ -11890,7 +11891,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 					goto st614
 				}
 
-				m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+				m.err = fmt.Errorf(ErrStructuredData+":8:"+ColumnPositionTemplate, m.p)
 				(m.p)--
 
 				{
@@ -11909,7 +11910,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 					goto st614
 				}
 
-				m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+				m.err = fmt.Errorf(ErrStructuredData+":9:"+ColumnPositionTemplate, m.p)
 				(m.p)--
 
 				{
@@ -11952,7 +11953,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 					goto st614
 				}
 
-				m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+				m.err = fmt.Errorf(ErrStructuredData+":10:"+ColumnPositionTemplate, m.p)
 				(m.p)--
 
 				{
@@ -12019,7 +12020,7 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 					goto st614
 				}
 
-				m.err = fmt.Errorf(ErrStructuredData+ColumnPositionTemplate, m.p)
+				m.err = fmt.Errorf(ErrStructuredData+":11:"+ColumnPositionTemplate, m.p)
 				(m.p)--
 
 				{
@@ -12034,6 +12035,9 @@ func (m *machine) Parse(input []byte) (syslog.Message, error) {
 		}
 	}
 
+	if strings.Contains(string(m.data), "gauge") && strings.Contains(string(m.data), "dummy-guid") {
+		fmt.Printf("banana:", string(m.data))
+	}
 	if m.cs < firstFinal || m.cs == enFail {
 		if m.bestEffort && output.minimal() {
 			// An error occurred but partial parsing is on and partial message is minimally valid

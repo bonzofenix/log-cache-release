@@ -175,7 +175,7 @@ func (s *Server) setReadDeadline(conn net.Conn) {
 func (s *Server) parseListener(res *syslog.Result) {
 	if res.Error != nil {
 		s.invalidIngress.Add(1)
-		s.loggr.Printf("unable to parse syslog message: %s", res.Error)
+		s.loggr.Printf("unable to parse syslog message: %s:banana:  %s", res.Error, res.Message)
 		return
 	}
 
